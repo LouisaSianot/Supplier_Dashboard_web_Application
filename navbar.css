@@ -1,0 +1,179 @@
+/* navbar.css - Fixed Navigation Styles */
+
+.navbar {
+    background-color: #343a40;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+/* Fixed navbar for supplier portal */
+.navbar.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    margin-bottom: 0;
+}
+
+/* Regular navbar margin */
+.navbar:not(.fixed) {
+    margin-bottom: 2rem;
+}
+
+/* FIXED: More specific selector to avoid conflicts */
+.navbar > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    background: none !important; /* Override any background from page containers */
+}
+
+.navbar-brand {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar-brand:hover {
+    color: #007bff;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav li {
+    margin: 0;
+}
+
+.navbar-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.navbar-nav a:hover {
+    color: #007bff;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.navbar-nav a.active {
+    color: #007bff;
+    background-color: rgba(0,123,255,0.1);
+}
+
+.navbar-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background-color: #007bff;
+}
+
+/* Mobile hamburger menu styles */
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-toggle {
+        display: block;
+    }
+    
+    .navbar > .container {
+        flex-wrap: wrap;
+    }
+    
+    .navbar-nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .navbar-nav.show {
+        display: flex;
+    }
+    
+    .navbar-nav a {
+        padding: 0.75rem 1rem;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .navbar-nav a:last-child {
+        border-bottom: none;
+    }
+    
+    .navbar-nav a.active::after {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar > .container {
+        padding: 0 15px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .navbar-nav a {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animation for mobile menu toggle */
+.navbar-toggle.active .hamburger span:first-child {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggle.active .hamburger span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggle.active .hamburger span:last-child {
+    transform: rotate(-45deg) translate(7px, -6px);
+}

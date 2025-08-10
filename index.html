@@ -1,105 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Supplier Dashboard</title>
-        <title>Building Materials Quotation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        .hero-section {
-            background: white;
-            padding: 60px 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .hero-section h1 {
-            font-size: 2.5em;
-            color: #333;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-        
-        .hero-section .subtitle {
-            font-size: 1.8em;
-            color: #666;
-            margin-bottom: 40px;
-        }
-        
-        .cta-button {
-            background-color: #6c757d;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: background-color 0.3s;
-        }
-        
-        .cta-button:hover {
-            background-color: #5a6268;
-        }
-        
-        .info-section {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .info-section h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .placeholder-text {
-            background-color: #e9ecef;
-            height: 20px;
-            border-radius: 3px;
-            margin-bottom: 10px;
-        }
-        
-        .placeholder-text.short {
-            width: 60%;
-        }
-        
-        .placeholder-text.medium {
-            width: 80%;
-        }
-    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Materials Quotation</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">BuildQuote</a>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="quotation.html">Get Quote</a></li>
+                <li><a href="results.html">Sample Result</a></li>
+                <li><a href="supplier-portal.html">Supplier Portal</a></li>
+            </ul>
+        </div>
+    </nav>
+    
     <div class="container">
         <div class="hero-section">
             <h1>Save Time, Get Instant</h1>
             <div class="subtitle">Quotations for Building Materials</div>
-            <a href="#" class="cta-button" onclick="goToQuotation()">Start Quoting Now</a>
+            <a href="quotation.html" class="cta-button">Start Quoting Now</a>
         </div>
         
         <div class="info-section">
             <h2>Brief explanation of how it works</h2>
+            <p>Our platform connects you with multiple suppliers to get the best prices for your building materials. Simply enter your material requirements, compare prices from different suppliers, and generate instant quotations.</p>
             <div class="placeholder-text"></div>
             <div class="placeholder-text medium"></div>
             <div class="placeholder-text short"></div>
@@ -109,11 +39,8 @@
     </div>
 
     <script>
-        function goToQuotation() {
-            // In a real application, this would navigate to the quotation page
-            alert('This would navigate to the quotation page');
-        }
+        // Add any JavaScript functionality here
+        console.log('Landing page loaded');
     </script>
 </body>
-    
 </html>
