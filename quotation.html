@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotation Page</title>
+    <link rel="stylesheet" href="quotation.css">
+</head>
+<body>
+    <div class="container">
+        <nav style="margin-bottom: 20px;">
+            <a href="index.html" style="color: #007bff; text-decoration: none;">&larr; Back to Home</a>
+        </nav>
+        
+        <h1 class="page-title">Quotation Page</h1>
+        
+        <div class="section">
+            <h2 class="section-title">Material List</h2>
+            <div class="material-inputs">
+                <div class="input-group">
+                    <input type="text" placeholder="Material" id="material">
+                </div>
+                <div class="input-group">
+                    <input type="number" placeholder="Quantity" id="quantity">
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Unit" id="unit">
+                </div>
+            </div>
+            <button class="add-material-btn" onclick="addMaterial()">Add Material</button>
+            
+            <div id="materialsList" style="margin-top: 20px;"></div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Supplier Comparison</h2>
+            <table class="supplier-table">
+                <thead>
+                    <tr>
+                        <th>Supplier Name</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Delivery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                        <td><div class="placeholder-cell"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <button class="generate-button" onclick="generateQuote()">Generate Quote</button>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+    <script src="quotation.js"></script>
+</body>
+</html>

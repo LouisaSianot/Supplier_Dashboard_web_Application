@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Portal</title>
+    <link rel="stylesheet" href="supplier-portal.css">
+</head>
+<body>
+    <div class="container">
+        <nav style="position: absolute; top: 20px; left: 20px;">
+            <a href="index.html" style="color: #007bff; text-decoration: none;">&larr; Back to Home</a>
+        </nav>
+        
+        <h1 class="page-title">Supplier Portal</h1>
+        
+        <div class="login-section">
+            <h2 class="section-title">Supplier Login</h2>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                
+                <button type="submit" class="login-button">Log in</button>
+            </form>
+            
+            <div class="forgot-password">
+                <a href="#" onclick="forgotPassword()">Forgot your password?</a>
+            </div>
+            
+            <div class="signup-link">
+                <p>New supplier? <a href="#" onclick="signUp()">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="supplier-portal.js"></script>
+</body>
+</html>
