@@ -15,6 +15,9 @@
     right: 0;
     z-index: 1000;
     margin-bottom: 0;
+    background-color: #343a40;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Regular navbar margin */
