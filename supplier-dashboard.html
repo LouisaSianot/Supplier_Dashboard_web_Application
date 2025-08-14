@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Supplier Dashboard</title>
+        <link rel="stylesheet" href="navbar.css">
+        <link rel="stylesheet" href="supplier-dashboard.css">
+    </head>
+    <body>
+        <nav class="navbar fixed">
+            <div class="container">
+                <a href="index.html" class="navbar-brand">BuildQuote</a>
+                <ul class="navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="quotation.html">Get Quote</a></li>
+                    <li><a href="results.html">Sample Result</a></li>
+                    <li><a href="supplier-portal.html" class="active">Supplier Portal</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main>
+            <div class="container">
+                <h1 class="page-title">Supplier Dashboard</h1>
+                <!-- Dashboard Content -->
+                <div class="dashboard-section">
+                    <h2 class="section-title">Welcome, Supplier!</h2>
+                    <p>Here you can manage your quotations and materials, update prices, and  view customer quote requests</p>
+                    <div class="dashboard-actions">
+                        <button class="action-button" onclick="viewRequests()">View Requests</button>
+                        <button class="action-button" onclick="manageQuotations()">Manage Quotations</button>
+                    </div>
+                </div>
+                <!-- Request Section -->
+                <div class="requests-section">
+                    <h2 class="section-title">Recent Requests</h2>
+                    <table class="requests-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Customer Name</th>
+                                <th>Material</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsList">
+                            <!-- Placeholder for requests -->
+                            <tr>    
+                                <td><div class="placeholder-cell"></div></td>
+                                <td><div class="placeholder-cell"></div></td>
+                                <td><div class="placeholder-cell"></div></td>
+                                <td><div class="placeholder-cell"></div></td>
+                                <td><div class="placeholder-cell"></div></td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+                <!-- Products Management Section -->
+            </div class="container">
+                <div class="products-section">
+                    <h2 class="section-title">Manage Products</h2>
+                    <form id="productForm" onsubmit="handleProductSubmit(event)">
+                        <div class="form-group">
+                            <input type="text" id="productName" placeholder="Product Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="productPrice" placeholder="Price" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="productStock" placeholder="Stock Quantity" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="add-product-button">Add Product</button>
+                            <button type="button" class="update-product-button" onclick="updateProduct()">Update Product</button>
+                            <button type="button" class="delete-product-button" onclick="deleteProduct()">Delete Product</button>
+                            <button type="button" class="view-products-button" onclick="viewProducts()">View Products</button>
+                        </div>
+                    </form>
+                    <!-- Product Table -->
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsList">
+                            <!-- Placeholder for products -->
+                            <tr>
+                                <td><div class="placeholder-cell"></div></td>
+                                <td><div class="placeholder-cell"></div></td>
+                                <td><div class="placeholder-cell"></div></td>
+                                <td>
+                                    <button class="edit-button" onclick="editProduct()">Edit</button>
+                                    <button class="delete-button" onclick="removeProduct()">Delete</button>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <script src="supplier-dashboard.js"></script>
+    </body>
+</html>

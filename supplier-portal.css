@@ -25,7 +25,7 @@ body {
 }
 
 main {
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 .page-title {
@@ -139,6 +139,37 @@ main {
     background-color: #6c757d;
     opacity: 0.6;
     cursor: not-allowed;
+}
+/*Supplier Modal Login Background*/
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+/* Modal content */
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    margin: 40px auto;
+}
+/*close button */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5em;
+    color: #333;
+    cursor: pointer;
 }
 
 /* Responsive Design */
