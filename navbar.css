@@ -1,13 +1,13 @@
-/* navbar.css - Fixed Navigation Styles */
+/* navbar.css - Navigation Styles */
 
 .navbar {
     background-color: #343a40;
     padding: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
 
-/* Fixed navbar for supplier portal */
+/* Fixed navbar positioning */
 .navbar.fixed {
     position: fixed;
     top: 0;
@@ -15,9 +15,6 @@
     right: 0;
     z-index: 1000;
     margin-bottom: 0;
-    background-color: #343a40;
-    padding: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Regular navbar margin */
@@ -25,7 +22,7 @@
     margin-bottom: 2rem;
 }
 
-/* FIXED: More specific selector to avoid conflicts */
+/* Navbar container */
 .navbar > .container {
     display: flex;
     justify-content: space-between;
@@ -33,9 +30,10 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    background: none !important; /* Override any background from page containers */
+    background: none !important;
 }
 
+/* Brand styling */
 .navbar-brand {
     color: white;
     text-decoration: none;
@@ -48,6 +46,7 @@
     color: #007bff;
 }
 
+/* Navigation list */
 .navbar-nav {
     display: flex;
     list-style: none;
@@ -60,6 +59,7 @@
     margin: 0;
 }
 
+/* Navigation links */
 .navbar-nav a {
     color: #ffffff;
     text-decoration: none;
@@ -71,12 +71,13 @@
 
 .navbar-nav a:hover {
     color: #007bff;
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Active link styling */
 .navbar-nav a.active {
     color: #007bff;
-    background-color: rgba(0,123,255,0.1);
+    background-color: rgba(0, 123, 255, 0.1);
 }
 
 .navbar-nav a.active::after {
@@ -90,7 +91,7 @@
     background-color: #007bff;
 }
 
-/* Mobile hamburger menu styles */
+/* Mobile hamburger menu */
 .navbar-toggle {
     display: none;
     background: none;
@@ -131,7 +132,7 @@
         gap: 0;
         margin-top: 1rem;
         padding-top: 1rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .navbar-nav.show {
@@ -141,7 +142,7 @@
     .navbar-nav a {
         padding: 0.75rem 1rem;
         border-radius: 0;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .navbar-nav a:last-child {
@@ -168,7 +169,7 @@
     }
 }
 
-/* Animation for mobile menu toggle */
+/* Mobile menu animation */
 .navbar-toggle.active .hamburger span:first-child {
     transform: rotate(45deg) translate(5px, 5px);
 }

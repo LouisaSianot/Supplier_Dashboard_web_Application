@@ -15,7 +15,8 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="quotation.html">Get Quote</a></li>
                     <li><a href="results.html">Sample Result</a></li>
-                    <li><a href="supplier-portal.html" class="active">Supplier Portal</a></li>
+                    <li><a href="supplier-dashboard.html">Supplier Dashboard</a></li>
+                    <li><a href="supplier-portal.html" class="active">Sign In</a></li>
                 </ul>
             </div>
         </nav>
@@ -57,7 +58,7 @@
                     </table>
                 </div>
                 <!-- Products Management Section -->
-            </div class="container">
+            <div class="container">
                 <div class="products-section">
                     <h2 class="section-title">Manage Products</h2>
                     <form id="productForm" onsubmit="handleProductSubmit(event)">
@@ -96,12 +97,42 @@
                                 <td>
                                     <button class="edit-button" onclick="editProduct()">Edit</button>
                                     <button class="delete-button" onclick="removeProduct()">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </main>
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 BuildQuote. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!--Supplier Login Modal-->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Supplier Login</h2>
+            <form id="modalLoginForm" onsubmit="handleModalLogin(event)">
+                <div class="form-group">
+                <input type="email" id="modalEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                <input type="password" id="modalPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-button">Log in</button>
+            </form>
+            <div class="forgot-password">
+            <a href="#" onclick="forgotPassword()">Forgot your password?</a>
+        </div>
+        <div class="signup-link">
+            <p>New supplier? <a href="#" onclick="signUp()">Sign up here</a></p>
+        </div>
+        </div>
+        
+    </div>
         <script src="supplier-dashboard.js"></script>
     </body>
 </html>

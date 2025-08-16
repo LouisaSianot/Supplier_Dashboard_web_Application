@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quotation Page</title>
+    <title>Get Quote - BuildQuote</title>
+    <meta name="description" content="Create quotations for building materials by selecting suppliers and comparing prices.">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="quotation.css">
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="navbar-brand">BuildQuote</a>
@@ -16,69 +18,87 @@
                 <li><a href="quotation.html" class="active">Get Quote</a></li>
                 <li><a href="results.html">Sample Result</a></li>
                 <li><a href="supplier-dashboard.html">Supplier Dashboard</a></li>
+                <li><a href="supplier-portal.html">Sign In</a></li>
             </ul>
         </div>
     </nav>
     
-    <div class="container">
-        <h1 class="page-title">Quotation Page</h1>
-        
-        <div class="section">
-            <h2 class="section-title">Material List</h2>
-            <div class="material-inputs">
-                <div class="input-group">
-                    <input type="text" placeholder="Material" id="material">
-                </div>
-                <div class="input-group">
-                    <input type="number" placeholder="Quantity" id="quantity">
-                </div>
-                <div class="input-group">
-                    <input type="text" placeholder="Unit" id="unit">
-                </div>
-            </div>
-            <button class="add-material-btn" onclick="addMaterial()">Add Material</button>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h1 class="page-title">Create Quotation</h1>
             
-            <div id="materialsList" style="margin-top: 20px;"></div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">Supplier Comparison</h2>
-            <table class="supplier-table">
-                <thead>
-                    <tr>
-                        <th>Supplier Name</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Delivery</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                        <td><div class="placeholder-cell"></div></td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Material Input Section -->
+            <section class="section">
+                <h2 class="section-title">Add Materials</h2>
+                <form id="materialForm">
+                    <div class="material-inputs">
+                        <div class="input-group">
+                            <input type="text" id="material" placeholder="Material" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" id="quantity" placeholder="Quantity" min="1" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="unit" placeholder="Unit (e.g., bags, pieces)" required>
+                        </div>
+                    </div>
+                    <button type="button" class="add-material-btn" onclick="addMaterial()">Add Material</button>
+                </form>
+                
+                <!-- Materials List Container -->
+                <div id="materialsList" style="margin-top: 20px;"></div>
+            </section>
             
-            <button class="generate-button" onclick="generateQuote()">Generate Quote</button>
-            <div style="clear: both;"></div>
+            <!-- Supplier Comparison Section -->
+            <section class="section">
+                <h2 class="section-title">Supplier Comparison</h2>
+                <table class="supplier-table">
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Price per Unit</th>
+                            <th>Stock Available</th>
+                            <th>Delivery Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                            <td><div class="placeholder-cell"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button class="generate-button" onclick="generateQuote()">Generate Quote</button>
+                <div style="clear: both;"></div>
+            </section>
         </div>
-    </div>
+    </main>
 
-    <script src="quotation.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 BuildQuote. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

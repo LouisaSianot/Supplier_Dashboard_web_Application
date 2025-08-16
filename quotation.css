@@ -1,4 +1,4 @@
-/* Quotation Page CSS - quotation.css */
+/* quotation.css - Quotation Page Styles */
 
 * {
     margin: 0;
@@ -17,12 +17,13 @@ body {
     margin: 0 auto;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
+/* Typography */
 .page-title {
     font-size: 2em;
     color: #333;
@@ -41,6 +42,7 @@ body {
     font-weight: bold;
 }
 
+/* Material Input Section */
 .material-inputs {
     display: flex;
     gap: 15px;
@@ -65,28 +67,24 @@ body {
     border-color: #007bff;
 }
 
-.supplier-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+.input-group input::placeholder {
+    color: #999;
 }
 
-.supplier-table th,
-.supplier-table td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-.supplier-table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-.placeholder-cell {
-    background-color: #e9ecef;
-    height: 20px;
+/* Buttons */
+.add-material-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
     border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.add-material-btn:hover {
+    background-color: #218838;
 }
 
 .generate-button {
@@ -105,30 +103,69 @@ body {
     background-color: #5a6268;
 }
 
-.add-material-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s;
+/* Tables */
+.supplier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-.add-material-btn:hover {
-    background-color: #218838;
+.supplier-table th,
+.supplier-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.supplier-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #333;
+}
+
+.supplier-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Placeholder styling */
+.placeholder-cell {
+    background-color: #e9ecef;
+    height: 20px;
+    border-radius: 3px;
+}
+
+/* Materials list styling */
+#materialsList {
+    margin-top: 20px;
+}
+
+/* Footer */
+.footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9em;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    
     .container {
         padding: 20px;
         margin-top: 10px;
+    }
+    
+    .page-title {
+        font-size: 1.6em;
+    }
+    
+    .section-title {
+        font-size: 1.2em;
     }
     
     .material-inputs {
@@ -153,19 +190,34 @@ body {
         width: 100%;
         margin-top: 20px;
     }
+    
+    .add-material-btn {
+        width: 100%;
+        padding: 10px 16px;
+    }
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+    
     .page-title {
-        font-size: 1.5em;
+        font-size: 1.4em;
     }
     
     .section-title {
         font-size: 1.1em;
     }
     
-    .container {
-        border-radius: 5px;
-        margin-top: 5px;
+    .supplier-table {
+        font-size: 0.8em;
+    }
+    
+    .supplier-table th,
+    .supplier-table td {
+        padding: 6px;
     }
 }

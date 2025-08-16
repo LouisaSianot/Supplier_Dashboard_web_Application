@@ -1,4 +1,4 @@
-/* Supplier Portal CSS - supplier-portal.css */
+/* supplier-portal.css - Supplier Portal Styles */
 
 * {
     margin: 0;
@@ -12,22 +12,27 @@ body {
     height: 100vh;
     padding-top: 80px;
     min-height: 100vh;
+    line-height: 1.6;
+}
+
+main {
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .container {
     background: white;
     border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     padding: 40px;
     width: 100%;
     max-width: 400px;
-    margin: 40px auto;
+    margin: 0 auto;
 }
 
-main {
-    padding-top: 40px;
-}
-
+/* Typography */
 .page-title {
     font-size: 2em;
     color: #333;
@@ -46,6 +51,7 @@ main {
     font-weight: normal;
 }
 
+/* Form Styling */
 .form-group {
     margin-bottom: 20px;
     text-align: left;
@@ -69,6 +75,7 @@ main {
     color: #999;
 }
 
+/* Button Styling */
 .login-button {
     background-color: #6c757d;
     color: white;
@@ -90,6 +97,13 @@ main {
     transform: translateY(1px);
 }
 
+.login-button:disabled {
+    background-color: #6c757d;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Link Styling */
 .forgot-password {
     margin-top: 15px;
 }
@@ -125,55 +139,25 @@ main {
     color: #1e7e34;
 }
 
-/* Form validation styles */
-.form-group input:invalid {
+/* Form validation */
+.form-group input:invalid:not(:placeholder-shown) {
     border-color: #dc3545;
 }
 
-.form-group input:valid {
+.form-group input:valid:not(:placeholder-shown) {
     border-color: #28a745;
-}
-
-/* Loading state */
-.login-button:disabled {
-    background-color: #6c757d;
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-/*Supplier Modal Login Background*/
-.modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-/* Modal content */
-.modal-content {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
-    margin: 40px auto;
-}
-/*close button */
-.close-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 1.5em;
-    color: #333;
-    cursor: pointer;
 }
 
 /* Responsive Design */
 @media (max-width: 480px) {
+    body {
+        padding-top: 20px;
+    }
+    
+    main {
+        padding-top: 20px;
+    }
+    
     .container {
         padding: 30px 20px;
         margin: 20px;
@@ -187,11 +171,23 @@ main {
     .section-title {
         font-size: 1.3em;
     }
+    
+    .form-group input {
+        padding: 10px;
+    }
+    
+    .login-button {
+        padding: 10px 20px;
+    }
 }
 
 @media (max-height: 600px) {
     body {
         align-items: flex-start;
-        padding-top: 20px;
+        padding-top: 10px;
+    }
+    
+    main {
+        padding-top: 10px;
     }
 }
