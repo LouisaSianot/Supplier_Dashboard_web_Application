@@ -186,6 +186,93 @@ function showPlaceholderData() {
     `;
 }
 
+// Update the displayQuoteResults function in results.js to show special requirements
+
+function displayQuoteResults(quoteData) {
+    // Update the page title to show it's a generated quote
+    document.querySelector('.page-title').textContent = 'Your Quotation';
+    
+    // Display the items table
+    const tbody = document.getElementById('selectedItems');
+    tbody.innerHTML = '';
+    
+    quoteData.items.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.description}</td>
+            <td>${item.supplier}</td>
+            <td>K${item.price.toFixed(2)}</td>
+            <td>${item.quantity} ${item.unit}</td>
+            <td>K${(item.price * item.quantity).toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    // Update the cost summary
+    document.getElementById('subtotal').textContent = `K${quoteData.subtotal.toFixed(2)}`;
+    document.getElementById('tax').textContent = `K${quoteData.tax.toFixed(2)}`;
+    document.getElementById('delivery').textContent = `K${quoteData.delivery.toFixed(2)}`;
+    document.getElementById('total').textContent = `K${quoteData.total.toFixed(2)}`;
+    
+    // Add special requirements section if it exists
+    if (quoteData.specialRequirements && quoteData.specialRequirements.trim() !== '') {
+        addSpecialRequirementsSection(quoteData.specialRequirements);
+    }
+    
+    // Add generated date
+    const existingDate = document.querySelector('.generated-date');
+    if (!existingDate) {
+        const dateElement = document.createElement('p');
+        dateElement.className = 'generated-date';
+        dateElement.textContent = `Generated: ${quoteData.generatedAt}`;
+        document.querySelector('.section-title').after(dateElement);
+    }
+}
+
+// Function to add special requirements section to results page
+function addSpecialRequirementsSection(requirements) {
+    const costSummary = document.querySelector('.cost-summary');
+    
+    // Create special requirements section
+    const requirementsSection = document.createElement('section');
+    requirementsSection.className = 'special-requirements-section';
+    requirementsSection.style.cssText = `
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        border: 1px solid #e9ecef;
+        border-left: 4px solid #007bff;
+    `;
+    
+    requirementsSection.innerHTML = `
+        <h3 class="section-title" style="margin-bottom: 15px; color: #333; font-size: 1.3em;">
+            Special Requirements
+        </h3>
+        <div class="requirements-text" style="
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            font-size: 1em;
+            line-height: 1.5;
+            color: #495057;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        ">${requirements}</div>
+        <div class="requirements-meta" style="
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #6c757d;
+            text-align: right;
+        ">
+            ${requirements.length} characters
+        </div>
+    `;
+    
+    // Insert before cost summary
+    costSummary.parentNode.insertBefore(requirementsSection, costSummary);
+}
 // Export functions
 function exportPDF() {
     window.print();

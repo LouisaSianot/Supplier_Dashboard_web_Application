@@ -508,4 +508,196 @@ function generateQuote() {
     setTimeout(() => {
         window.location.href = 'results.html';
     }, 500);
+    
+    // Add this to quotation.js - Character count functionality
+
+// Character count variables
+const maxChars = 500;
+let currentChars = 0;
+
+// Initialize character count functionality
+function setupCharacterCount() {
+    const textarea = document.getElementById('specialRequirements');
+    const charCountElement = document.getElementById('charCount');
+    const charWarningElement = document.getElementById('charWarning');
+    
+    if (!textarea || !charCountElement) return;
+    
+    // Update character count in real-time
+    textarea.addEventListener('input', function() {
+        updateCharacterCount();
+    });
+    
+    // Update on paste events
+    textarea.addEventListener('paste', function() {
+        setTimeout(updateCharacterCount, 10);
+    });
+    
+    // Initialize count on page load
+    updateCharacterCount();
+}
+
+// Update character count display and styling
+function updateCharacterCount() {
+    const textarea = document.getElementById('specialRequirements');
+    const charCountElement = document.getElementById('charCount');
+    const charWarningElement = document.getElementById('charWarning');
+    
+    if (!textarea || !charCountElement) return;
+    
+    currentChars = textarea.value.length;
+    charCountElement.textContent = currentChars;
+    
+    // Remove existing color classes
+    charCountElement.classList.remove('char-normal', 'char-warning', 'char-danger');
+    
+    // Apply appropriate styling based on character count
+    if (currentChars === 0) {
+        charCountElement.classList.add('char-normal');
+        charWarningElement.style.display = 'none';
+    } else if (currentChars < maxChars * 0.8) {
+        // Less than 80% - normal (green)
+        charCountElement.classList.add('char-normal');
+        charWarningElement.style.display = 'none';
+    } else if (currentChars < maxChars * 0.95) {
+        // 80-95% - warning (yellow)
+        charCountElement.classList.add('char-warning');
+        charWarningElement.style.display = 'block';
+        charWarningElement.textContent = 'You\'re approaching the character limit!';
+    } else {
+        // 95%+ - danger (red)
+        charCountElement.classList.add('char-danger');
+        charWarningElement.style.display = 'block';
+        charWarningElement.textContent = `Only ${maxChars - currentChars} characters remaining!`;
+        charWarningElement.style.color = '#dc3545';
+    }
+    
+    // Add visual feedback when at limit
+    if (currentChars >= maxChars) {
+        textarea.style.borderColor = '#dc3545';
+        charWarningElement.textContent = 'Character limit reached!';
+        charWarningElement.style.color = '#dc3545';
+    } else {
+        textarea.style.borderColor = '#ddd';
+    }
+}
+
+// Get special requirements text for quote generation
+function getSpecialRequirements() {
+    const textarea = document.getElementById('specialRequirements');
+    return textarea ? textarea.value.trim() : '';
+}
+
+// Validate special requirements (optional - can be empty)
+function validateSpecialRequirements() {
+    const requirements = getSpecialRequirements();
+    
+    // Check if it exceeds limit (shouldn't happen with maxlength, but good practice)
+    if (requirements.length > maxChars) {
+        alert(`Special requirements cannot exceed ${maxChars} characters. Current: ${requirements.length}`);
+        return false;
+    }
+    
+    return true;
+}
+
+// Update the existing setupMaterialSearch function call
+document.addEventListener('DOMContentLoaded', function() {
+    setupMaterialSearch();
+    setupCharacterCount(); // Add this line
+});
+
+// Update the generateQuote function to include special requirements
+function generateQuote() {
+    if (addedMaterials.length === 0) {
+        alert('Please add some materials first');
+        return;
+    }
+    
+    // Validate special requirements
+    if (!validateSpecialRequirements()) {
+        return;
+    }
+    
+    // Check if all materials have selected suppliers
+    const materialsWithSuppliers = addedMaterials.filter(mat => mat.selectedSupplier);
+    
+    if (materialsWithSuppliers.length === 0) {
+        alert('Please select suppliers for your materials');
+        return;
+    }
+    
+    // Get special requirements
+    const specialRequirements = getSpecialRequirements();
+    
+    // Prepare quote data for the results page
+    const quoteData = {
+        items: materialsWithSuppliers.map(material => ({
+            description: material.material,
+            supplier: material.selectedSupplier.name,
+            price: material.selectedSupplier.price,
+            quantity: material.quantity,
+            unit: material.unit,
+            productCode: material.selectedSupplier.productCode
+        })),
+        specialRequirements: specialRequirements, // Add this line
+        generatedAt: new Date().toLocaleString()
+    };
+    
+    // Calculate totals
+    quoteData.subtotal = quoteData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    quoteData.tax = quoteData.subtotal * 0.1; // 10% tax
+    quoteData.delivery = 100; // Fixed delivery fee
+    quoteData.total = quoteData.subtotal + quoteData.tax + quoteData.delivery;
+    
+    // Store in sessionStorage for the results page
+    sessionStorage.setItem('quoteResults', JSON.stringify(quoteData));
+    
+    // Show loading state
+    const button = document.querySelector('.generate-button');
+    const originalText = button.textContent;
+    button.textContent = 'Generating Quote...';
+    button.disabled = true;
+    
+    // Redirect to results page after short delay
+    setTimeout(() => {
+        window.location.href = 'results.html';
+    }, 500);
+}
+
+// Advanced character count features (optional enhancements)
+function setupAdvancedCharacterFeatures() {
+    const textarea = document.getElementById('specialRequirements');
+    if (!textarea) return;
+    
+    // Word count functionality
+    function updateWordCount() {
+        const text = textarea.value.trim();
+        const wordCount = text === '' ? 0 : text.split(/\s+/).length;
+        
+        // You can add a word count display if desired
+        console.log(`Words: ${wordCount}, Characters: ${text.length}`);
+    }
+    
+    // Add word count updates
+    textarea.addEventListener('input', updateWordCount);
+    
+    // Prevent typing when at character limit (alternative to maxlength)
+    textarea.addEventListener('keydown', function(e) {
+        const currentLength = this.value.length;
+        
+        // Allow backspace, delete, and arrow keys even at limit
+        if (currentLength >= maxChars && 
+            !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+            e.preventDefault();
+        }
+    });
+}
+
+// Call advanced features setup
+document.addEventListener('DOMContentLoaded', function() {
+    setupMaterialSearch();
+    setupCharacterCount();
+    setupAdvancedCharacterFeatures(); // Optional advanced features
+});
 }

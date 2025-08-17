@@ -139,6 +139,100 @@ body {
     margin-top: 20px;
 }
 
+/* Add these styles to quotation.css */
+
+/* Textarea Group Styling */
+.textarea-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.textarea-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.textarea-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.textarea-group textarea::placeholder {
+    color: #999;
+    opacity: 0.8;
+}
+
+/* Character Count Display */
+.character-count {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+#charCount {
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Character count color states */
+.char-normal {
+    color: #28a745;
+}
+
+.char-warning {
+    color: #ffc107;
+}
+
+.char-danger {
+    color: #dc3545;
+}
+
+/* Warning message */
+.char-warning {
+    color: #ffc107;
+    font-size: 0.8em;
+    margin-top: 5px;
+    font-weight: bold;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Responsive design for textarea */
+@media (max-width: 768px) {
+    .textarea-group textarea {
+        padding: 12px;
+        font-size: 0.95em;
+    }
+    
+    .character-count {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    .textarea-group textarea {
+        padding: 10px;
+        min-height: 80px;
+    }
+}
+
 /* Footer */
 .footer {
     background-color: #343a40;

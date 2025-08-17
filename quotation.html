@@ -29,6 +29,23 @@
             <h1 class="page-title">Create Quotation</h1>
             
             <!-- Material Input Section -->
+             <section class="section">
+    <h2 class="section-title">Special Requirements</h2>
+    <div class="textarea-group">
+        <textarea 
+            id="specialRequirements" 
+            placeholder="Enter any special delivery instructions, quality requirements, or additional notes for suppliers..."
+            maxlength="500"
+            rows="4"
+        ></textarea>
+        <div class="character-count">
+            <span id="charCount">0</span>/<span id="charLimit">500</span> characters
+        </div>
+        <div class="char-warning" id="charWarning" style="display: none;">
+            You're approaching the character limit!
+        </div>
+    </div>
+</section>
             <section class="section">
                 <h2 class="section-title">Add Materials</h2>
                 <form id="materialForm">
