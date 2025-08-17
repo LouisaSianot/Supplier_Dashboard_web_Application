@@ -1,31 +1,87 @@
-// results.js
+// results.js - Fixed and cleaned up version
 
 const deliveryFee = 100;
-let items = []; // will store loaded items
 
-// Load CSV dynamically
-async function loadCSV() {
-    const response = await fetch("quotes.csv"); // ensure quotes.csv is in same folder
-    const csvText = await response.text();
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we have quote data from sessionStorage
+    const quoteData = JSON.parse(sessionStorage.getItem('quoteResults'));
+    
+    if (quoteData) {
+        // We have data from the quotation page - display it
+        displayQuoteResults(quoteData);
+    } else {
+        // No data from quotation page - load sample data from CSV
+        loadCSV();
+    }
+});
 
-    const rows = csvText.split("\n").map(r => r.split(","));
-    const dataRows = rows.slice(1).filter(r => r.length > 1);
-
-    items = dataRows.map(row => ({
-        supplier: row[0],
-        productCode: row[1],
-        description: row[2],
-        uom: row[3],
-        price: parseFloat(row[4]) || 0,
-        quantity: 1
-    }));
-
-    renderTable();
-    updateSummary();
+// Display quote results from quotation page
+function displayQuoteResults(quoteData) {
+    // Update the page title to show it's a generated quote
+    document.querySelector('.page-title').textContent = 'Your Quotation';
+    
+    // Display the items table
+    const tbody = document.getElementById('selectedItems');
+    tbody.innerHTML = '';
+    
+    quoteData.items.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.description}</td>
+            <td>${item.supplier}</td>
+            <td>K${item.price.toFixed(2)}</td>
+            <td>${item.quantity} ${item.unit}</td>
+            <td>K${(item.price * item.quantity).toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    // Update the cost summary
+    document.getElementById('subtotal').textContent = `K${quoteData.subtotal.toFixed(2)}`;
+    document.getElementById('tax').textContent = `K${quoteData.tax.toFixed(2)}`;
+    document.getElementById('delivery').textContent = `K${quoteData.delivery.toFixed(2)}`;
+    document.getElementById('total').textContent = `K${quoteData.total.toFixed(2)}`;
+    
+    // Add generated date
+    const existingDate = document.querySelector('.generated-date');
+    if (!existingDate) {
+        const dateElement = document.createElement('p');
+        dateElement.className = 'generated-date';
+        dateElement.textContent = `Generated: ${quoteData.generatedAt}`;
+        document.querySelector('.section-title').after(dateElement);
+    }
 }
 
-// Render the items into the table
-function renderTable() {
+// Load sample CSV data when no quote data exists
+async function loadCSV() {
+    try {
+        const response = await fetch("quotes.csv");
+        const csvText = await response.text();
+
+        const rows = csvText.split("\n").map(r => r.split(","));
+        const dataRows = rows.slice(1).filter(r => r.length > 1);
+
+        const items = dataRows.slice(0, 5).map(row => ({
+            supplier: row[0],
+            productCode: row[1],
+            description: row[2],
+            uom: row[3],
+            price: parseFloat(row[4]) || 0,
+            quantity: 1
+        }));
+
+        renderSampleItems(items);
+        updateSummary(items);
+    } catch (error) {
+        console.error('Error loading CSV:', error);
+        // Show placeholder data if CSV can't be loaded
+        showPlaceholderData();
+    }
+}
+
+// Render sample items from CSV
+function renderSampleItems(items) {
     const tbody = document.getElementById("selectedItems");
     tbody.innerHTML = "";
 
@@ -56,6 +112,12 @@ function renderTable() {
         tbody.appendChild(row);
     });
 
+    // Add event listeners for interactive elements
+    addInteractiveListeners(items);
+}
+
+// Add event listeners for quantity changes and remove buttons
+function addInteractiveListeners(items) {
     // Quantity change listeners
     document.querySelectorAll(".quantity-input").forEach(input => {
         input.addEventListener("input", e => {
@@ -64,7 +126,7 @@ function renderTable() {
             items[idx].quantity = newQty;
             document.getElementById(`total-${idx}`).textContent = 
                 `K${(items[idx].price * newQty).toFixed(2)}`;
-            updateSummary();
+            updateSummary(items);
         });
     });
 
@@ -72,15 +134,15 @@ function renderTable() {
     document.querySelectorAll(".remove-btn").forEach(btn => {
         btn.addEventListener("click", e => {
             const idx = parseInt(e.target.getAttribute("data-index"));
-            items.splice(idx, 1); // remove item
-            renderTable();        // re-render table
-            updateSummary();      // update totals
+            items.splice(idx, 1);
+            renderSampleItems(items);
+            updateSummary(items);
         });
     });
 }
 
-// Update subtotal, tax, delivery, total
-function updateSummary() {
+// Update cost summary
+function updateSummary(items) {
     let subtotal = 0;
 
     items.forEach(item => {
@@ -96,23 +158,59 @@ function updateSummary() {
     document.getElementById("total").textContent = `K${grandTotal.toFixed(2)}`;
 }
 
-// Export PDF (browser print)
+// Show placeholder data when CSV loading fails
+function showPlaceholderData() {
+    const tbody = document.getElementById("selectedItems");
+    tbody.innerHTML = `
+        <tr>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+        </tr>
+        <tr>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+        </tr>
+        <tr>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+            <td><div class="placeholder-cell"></div></td>
+        </tr>
+    `;
+}
+
+// Export functions
 function exportPDF() {
     window.print();
 }
 
-// Generate shareable link (basic simulation)
 function generateShareableLink() {
-    const link = `${window.location.href}?quoteId=12345`;
+    const quoteData = JSON.parse(sessionStorage.getItem('quoteResults'));
+    let link;
+    
+    if (quoteData) {
+        // Generate a more meaningful link for custom quotes
+        const timestamp = new Date().getTime();
+        link = `${window.location.href}?quote=${timestamp}`;
+    } else {
+        link = `${window.location.href}?sample=true`;
+    }
+    
     navigator.clipboard.writeText(link).then(() => {
         alert("Shareable link copied to clipboard:\n" + link);
+    }).catch(() => {
+        // Fallback if clipboard API fails
+        prompt("Copy this link:", link);
     });
 }
 
-// Print Quote
 function printQuote() {
     window.print();
 }
-
-// Run
-document.addEventListener("DOMContentLoaded", loadCSV);

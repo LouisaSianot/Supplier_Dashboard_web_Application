@@ -321,8 +321,9 @@ function updateMaterialsList() {
                         <strong>${mat.material}</strong><br>
                         <span style="color: #666; font-size: 0.9em;">Qty: ${mat.quantity} ${mat.unit}</span>
                     </div>
-                    <div style="display: flex; gap: 10px;">
+                    <div style="display: flex; gap: 10px; align-items: center;">
                         ${index === currentMaterialIndex ? '<span style="color: #2196f3; font-size: 0.8em;">SELECTED</span>' : ''}
+                        ${mat.selectedSupplier ? '<span style="color: #28a745; font-size: 0.8em;">✓ SUPPLIER SELECTED</span>' : ''}
                         <button onclick="event.stopPropagation(); removeMaterial(${mat.id})" style="
                             background: #dc3545;
                             color: white;
@@ -460,7 +461,7 @@ function selectSupplier(supplierName, price, productCode) {
     }
 }
 
-// Generate quote
+// Generate quote - FIXED VERSION
 function generateQuote() {
     if (addedMaterials.length === 0) {
         alert('Please add some materials first');
@@ -475,122 +476,36 @@ function generateQuote() {
         return;
     }
     
+    // Prepare quote data for the results page
+    const quoteData = {
+        items: materialsWithSuppliers.map(material => ({
+            description: material.material,
+            supplier: material.selectedSupplier.name,
+            price: material.selectedSupplier.price,
+            quantity: material.quantity,
+            unit: material.unit,
+            productCode: material.selectedSupplier.productCode
+        })),
+        generatedAt: new Date().toLocaleString()
+    };
+    
     // Calculate totals
-    let totalAmount = 0;
-    const quoteData = materialsWithSuppliers.map(material => {
-        const itemTotal = material.quantity * material.selectedSupplier.price;
-        totalAmount += itemTotal;
-        return {
-            ...material,
-            itemTotal: itemTotal
-        };
-    });
+    quoteData.subtotal = quoteData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    quoteData.tax = quoteData.subtotal * 0.1; // 10% tax
+    quoteData.delivery = 100; // Fixed delivery fee
+    quoteData.total = quoteData.subtotal + quoteData.tax + quoteData.delivery;
     
-    // Create quote display
-    const quoteHtml = `
-        <div style="
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        " onclick="closeQuote()">
-            <div style="
-                background: white;
-                padding: 30px;
-                border-radius: 10px;
-                max-width: 800px;
-                max-height: 90vh;
-                overflow-y: auto;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            " onclick="event.stopPropagation()">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 style="margin: 0; color: #333;">Quotation Summary</h2>
-                    <button onclick="closeQuote()" style="
-                        background: #dc3545;
-                        color: white;
-                        border: none;
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        cursor: pointer;
-                    ">×</button>
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <strong>Quote Date:</strong> ${new Date().toLocaleDateString()}<br>
-                    <strong>Total Items:</strong> ${materialsWithSuppliers.length}
-                </div>
-                
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <thead>
-                        <tr style="background: #f8f9fa;">
-                            <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Item</th>
-                            <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Supplier</th>
-                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Qty</th>
-                            <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Unit Price</th>
-                            <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${quoteData.map(item => `
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #ddd;">${item.material}</td>
-                                <td style="padding: 10px; border: 1px solid #ddd;">${item.selectedSupplier.name}</td>
-                                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${item.quantity} ${item.unit}</td>
-                                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">K${item.selectedSupplier.price.toFixed(2)}</td>
-                                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">K${item.itemTotal.toFixed(2)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                    <tfoot>
-                        <tr style="background: #e9ecef; font-weight: bold;">
-                            <td colspan="4" style="padding: 12px; border: 1px solid #ddd; text-align: right;">TOTAL AMOUNT:</td>
-                            <td style="padding: 12px; border: 1px solid #ddd; text-align: right;">K${totalAmount.toFixed(2)}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <button onclick="printQuote()" style="
-                        background: #28a745;
-                        color: white;
-                        padding: 10px 20px;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        margin-right: 10px;
-                    ">Print Quote</button>
-                    <button onclick="closeQuote()" style="
-                        background: #6c757d;
-                        color: white;
-                        padding: 10px 20px;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                    ">Close</button>
-                </div>
-            </div>
-        </div>
-    `;
+    // Store in sessionStorage for the results page
+    sessionStorage.setItem('quoteResults', JSON.stringify(quoteData));
     
-    document.body.insertAdjacentHTML('beforeend', quoteHtml);
-}
-
-// Close quote modal
-function closeQuote() {
-    const modal = document.querySelector('[style*="position: fixed"]');
-    if (modal) {
-        modal.remove();
-    }
-}
-
-// Print quote
-function printQuote() {
-    window.print();
+    // Show loading state
+    const button = document.querySelector('.generate-button');
+    const originalText = button.textContent;
+    button.textContent = 'Generating Quote...';
+    button.disabled = true;
+    
+    // Redirect to results page after short delay
+    setTimeout(() => {
+        window.location.href = 'results.html';
+    }, 500);
 }

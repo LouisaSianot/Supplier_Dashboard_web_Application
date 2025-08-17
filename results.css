@@ -153,6 +153,12 @@ body {
     border-radius: 0 !important;
 }
 
+.generated-date {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
