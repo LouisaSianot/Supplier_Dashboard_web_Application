@@ -1,6 +1,6 @@
-// quotation.js - Quotation Page JavaScript
+// quotation.js - Updated with Category Filter
 
-// Sample data from the CSV file
+// Sample data from the CSV file with categories added
 const materialsDatabase = [
     {
         supplier: "Badili Hardware",
@@ -8,6 +8,7 @@ const materialsDatabase = [
         description: "Chest Lock Freezer 400L -HSFZ-400W - Haus",
         uom: "Each",
         price: 2239.9,
+        category: "Digital",
         keywords: ["freezer", "chest", "lock", "400l", "appliance"]
     },
     {
@@ -16,6 +17,7 @@ const materialsDatabase = [
         description: "Blue Star Inverter Split Aircon 18000BTU(1.5TR)R32-IC18MYATU",
         uom: "Set",
         price: 2199.9,
+        category: "Digital",
         keywords: ["aircon", "air", "conditioner", "split", "inverter", "cooling"]
     },
     {
@@ -24,6 +26,7 @@ const materialsDatabase = [
         description: "Day Light Switch 10 Amps",
         uom: "Each",
         price: 229.9,
+        category: "Electrical",
         keywords: ["switch", "light", "electrical", "10", "amp"]
     },
     {
@@ -32,6 +35,7 @@ const materialsDatabase = [
         description: "KUMUL LED Light Fitting Complete W/Tube 1x36Watt-SFB2 1C 136",
         uom: "Set",
         price: 36.9,
+        category: "Electrical",
         keywords: ["led", "light", "fitting", "tube", "36", "watt"]
     },
     {
@@ -40,6 +44,7 @@ const materialsDatabase = [
         description: "Double GPO 10 Amps - Horizontal -KS315",
         uom: "Each",
         price: 19.9,
+        category: "Electrical",
         keywords: ["gpo", "double", "electrical", "power", "outlet"]
     },
     {
@@ -48,6 +53,7 @@ const materialsDatabase = [
         description: "Fibro Cement Sheet - 2400mm x 1200mm x 4.5mm (8'x4'x4.5mm)",
         uom: "Sheet",
         price: 49.95,
+        category: "Building Materials",
         keywords: ["fibro", "cement", "sheet", "building", "material"]
     },
     {
@@ -56,6 +62,7 @@ const materialsDatabase = [
         description: "Dulux Ultimate High Gloss Enamel 4L",
         uom: "Can",
         price: 159.9,
+        category: "Paints",
         keywords: ["dulux", "paint", "enamel", "gloss", "4l"]
     },
     {
@@ -64,6 +71,7 @@ const materialsDatabase = [
         description: "(BOSTIK) ECOFIX TILE ADHESIVE GREY 20KG",
         uom: "Bag",
         price: 33,
+        category: "Tiles",
         keywords: ["tile", "adhesive", "grey", "20kg", "bostik"]
     },
     {
@@ -72,6 +80,7 @@ const materialsDatabase = [
         description: "PYE TILE GROUT GREY 10KG",
         uom: "Each",
         price: 45.5,
+        category: "Tiles",
         keywords: ["tile", "grout", "grey", "10kg", "pye"]
     },
     {
@@ -80,6 +89,7 @@ const materialsDatabase = [
         description: "BOOK CABINET (3292#) 243292",
         uom: "Set",
         price: 420,
+        category: "Hardware",
         keywords: ["book", "cabinet", "furniture", "storage"]
     },
     {
@@ -88,6 +98,7 @@ const materialsDatabase = [
         description: "24AMG4G005 MIDEA GAS STOVE 4BRN 60*58*90CM(122217)",
         uom: "Each",
         price: 1490,
+        category: "Digital",
         keywords: ["gas", "stove", "midea", "4", "burner", "cooking"]
     },
     {
@@ -96,6 +107,7 @@ const materialsDatabase = [
         description: "MERT490MTF46AP/MIDEA FRIDGE 338L",
         uom: "Each",
         price: 2767,
+        category: "Digital",
         keywords: ["fridge", "midea", "338l", "refrigerator", "appliance"]
     },
     {
@@ -104,6 +116,7 @@ const materialsDatabase = [
         description: "Coloured Flashing 0.48 per SqM Surfmist (Off White) End Covers",
         uom: "Square Meter",
         price: 64.73,
+        category: "Roofing",
         keywords: ["flashing", "coloured", "surfmist", "white", "roofing"]
     },
     {
@@ -112,6 +125,7 @@ const materialsDatabase = [
         description: "GPO W/PROOF DOUBLE 15A TESLA WPGPO2/15 WPGPO2N/15",
         uom: "Each",
         price: 97.73,
+        category: "Electrical",
         keywords: ["gpo", "waterproof", "double", "15a", "electrical"]
     },
     {
@@ -120,6 +134,7 @@ const materialsDatabase = [
         description: "CONDUIT CORR MD 20mmX50M GY CC2050MD-GEN MEDIUM DUTY 50MTR ROLL",
         uom: "Meter",
         price: 5.45,
+        category: "Electrical",
         keywords: ["conduit", "20mm", "50m", "electrical", "grey"]
     },
     {
@@ -128,6 +143,7 @@ const materialsDatabase = [
         description: "Dulux Mineral Turpentine 4L (Paint Thinner & Cleaner)",
         uom: "Each",
         price: 110,
+        category: "Paints",
         keywords: ["dulux", "turpentine", "paint", "thinner", "cleaner", "4l"]
     },
     {
@@ -136,6 +152,7 @@ const materialsDatabase = [
         description: "Dulux Super Enamel High Gloss Blue Base 4 Litre",
         uom: "Each",
         price: 388.18,
+        category: "Paints",
         keywords: ["dulux", "enamel", "gloss", "blue", "paint", "4l"]
     },
     {
@@ -144,6 +161,7 @@ const materialsDatabase = [
         description: "Compress Sheet (Cement Board) 18mm 2.4x1.2m SCG",
         uom: "Sheet",
         price: 299.09,
+        category: "Building Materials",
         keywords: ["cement", "board", "sheet", "18mm", "building"]
     },
     {
@@ -152,6 +170,7 @@ const materialsDatabase = [
         description: "Premixed Mastik Tle Adhesive 20L SAS (Multistick)",
         uom: "Bag",
         price: 318.18,
+        category: "Tiles",
         keywords: ["tile", "adhesive", "20l", "premixed", "mastik"]
     },
     {
@@ -160,20 +179,160 @@ const materialsDatabase = [
         description: "Panelrib Colourbond 0.40x850mm [per meter]",
         uom: "Meter",
         price: 54.55,
+        category: "Roofing",
         keywords: ["panelrib", "colourbond", "roofing", "850mm", "metal"]
     }
 ];
 
-// Store added materials
+// Define categories
+const categories = [
+    "All Categories",
+    "Building Materials", 
+    "Cement",
+    "Plywood",
+    "Roofing",
+    "Timber", 
+    "Electrical",
+    "Hardware",
+    "Plumbing",
+    "Tiles",
+    "Digital",
+    "Paints",
+    "Tools"
+];
+
+// Store added materials and current selection
 let addedMaterials = [];
 let currentMaterialIndex = -1;
+let selectedCategory = "All Categories";
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', function() {
     setupMaterialSearch();
+    setupCharacterCount();
+    setupCategoryFilter();
 });
 
-// Setup material search functionality
+// Setup category filter functionality
+function setupCategoryFilter() {
+    // Find the material input section and add category filter
+    const materialInputs = document.querySelector('.material-inputs');
+    if (materialInputs) {
+        // Create category filter container
+        const categoryContainer = document.createElement('div');
+        categoryContainer.className = 'category-filter';
+        categoryContainer.style.cssText = `
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        `;
+        
+        // Create category label
+        const categoryLabel = document.createElement('label');
+        categoryLabel.textContent = 'Filter by Category:';
+        categoryLabel.style.cssText = `
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        `;
+        
+        // Create category dropdown
+        const categorySelect = document.createElement('select');
+        categorySelect.id = 'categoryFilter';
+        categorySelect.style.cssText = `
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            background: white;
+            transition: border-color 0.3s;
+        `;
+        
+        // Add focus style
+        categorySelect.addEventListener('focus', function() {
+            this.style.borderColor = '#007bff';
+        });
+        
+        categorySelect.addEventListener('blur', function() {
+            this.style.borderColor = '#ddd';
+        });
+        
+        // Populate dropdown with categories
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            categorySelect.appendChild(option);
+        });
+        
+        // Add change event listener
+        categorySelect.addEventListener('change', function() {
+            selectedCategory = this.value;
+            updateCategoryCount();
+            
+            // Clear current search if there is one
+            const materialInput = document.getElementById('material');
+            if (materialInput && materialInput.value.trim()) {
+                showMaterialSuggestions(materialInput.value.toLowerCase().trim());
+            }
+        });
+        
+        // Create category count display
+        const categoryCount = document.createElement('div');
+        categoryCount.id = 'categoryCount';
+        categoryCount.style.cssText = `
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        `;
+        
+        // Assemble category filter
+        categoryContainer.appendChild(categoryLabel);
+        categoryContainer.appendChild(categorySelect);
+        categoryContainer.appendChild(categoryCount);
+        
+        // Insert before material inputs
+        materialInputs.parentNode.insertBefore(categoryContainer, materialInputs);
+        
+        // Update initial count
+        updateCategoryCount();
+    }
+}
+
+// Update category count display
+function updateCategoryCount() {
+    const categoryCount = document.getElementById('categoryCount');
+    if (categoryCount) {
+        let filteredMaterials;
+        
+        if (selectedCategory === "All Categories") {
+            filteredMaterials = materialsDatabase;
+        } else {
+            filteredMaterials = materialsDatabase.filter(material => 
+                material.category === selectedCategory
+            );
+        }
+        
+        const count = filteredMaterials.length;
+        const countText = count === 1 ? '1 material' : `${count} materials`;
+        categoryCount.textContent = `${countText} available in this category`;
+        
+        // Add visual feedback
+        if (count === 0) {
+            categoryCount.style.color = '#dc3545';
+            categoryCount.textContent = 'No materials available in this category';
+        } else {
+            categoryCount.style.color = '#28a745';
+        }
+    }
+}
+
+// Setup material search functionality (updated to include category filtering)
 function setupMaterialSearch() {
     const materialInput = document.getElementById('material');
     
@@ -195,7 +354,7 @@ function setupMaterialSearch() {
     });
 }
 
-// Show material suggestions based on search
+// Show material suggestions based on search and category filter
 function showMaterialSuggestions(query) {
     const inputGroup = document.getElementById('material').parentElement;
     let suggestionsDiv = document.getElementById('material-suggestions');
@@ -211,7 +370,7 @@ function showMaterialSuggestions(query) {
             background: white;
             border: 1px solid #ddd;
             border-top: none;
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -220,28 +379,46 @@ function showMaterialSuggestions(query) {
         inputGroup.appendChild(suggestionsDiv);
     }
     
-    // Filter materials based on search query
-    const matches = materialsDatabase.filter(material => 
+    // Filter materials based on search query and selected category
+    let filteredMaterials = materialsDatabase;
+    
+    // Apply category filter first
+    if (selectedCategory !== "All Categories") {
+        filteredMaterials = filteredMaterials.filter(material => 
+            material.category === selectedCategory
+        );
+    }
+    
+    // Then apply search filter
+    const matches = filteredMaterials.filter(material => 
         material.description.toLowerCase().includes(query) ||
         material.keywords.some(keyword => keyword.includes(query))
     ).slice(0, 10);
     
     if (matches.length === 0) {
-        suggestionsDiv.innerHTML = '<div style="padding: 10px; color: #666;">No materials found</div>';
+        const noResultsMessage = selectedCategory === "All Categories" 
+            ? 'No materials found' 
+            : `No materials found in "${selectedCategory}" category`;
+            
+        suggestionsDiv.innerHTML = `<div style="padding: 15px; color: #666; text-align: center;">
+            ${noResultsMessage}
+            <br><small>Try selecting "All Categories" or a different category</small>
+        </div>`;
         return;
     }
     
     suggestionsDiv.innerHTML = matches.map(material => `
         <div class="suggestion-item" style="
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
             border-bottom: 1px solid #eee;
             transition: background-color 0.2s;
         " onmouseover="this.style.backgroundColor='#f5f5f5'" 
            onmouseout="this.style.backgroundColor='white'"
            onclick="selectMaterial('${material.description}', '${material.uom}')">
-            <div style="font-weight: bold; font-size: 0.9em;">${material.description}</div>
-            <div style="font-size: 0.8em; color: #666;">${material.supplier} - K${material.price} per ${material.uom}</div>
+            <div style="font-weight: bold; font-size: 0.9em; margin-bottom: 4px;">${material.description}</div>
+            <div style="font-size: 0.8em; color: #666; margin-bottom: 2px;">${material.supplier} - K${material.price} per ${material.uom}</div>
+            <div style="font-size: 0.75em; color: #007bff; font-weight: bold;">Category: ${material.category}</div>
         </div>
     `).join('');
 }
@@ -272,11 +449,17 @@ function addMaterial() {
         return;
     }
     
+    // Find the material in database to get category
+    const foundMaterial = materialsDatabase.find(m => 
+        m.description.toLowerCase() === material.toLowerCase()
+    );
+    
     // Add to materials list
     addedMaterials.push({
         material: material,
         quantity: quantity,
         unit: unit,
+        category: foundMaterial ? foundMaterial.category : 'Uncategorized',
         id: Date.now()
     });
     
@@ -294,7 +477,7 @@ function addMaterial() {
     }
 }
 
-// Update materials list display
+// Update materials list display (updated to show categories)
 function updateMaterialsList() {
     const container = document.getElementById('materialsList');
     
@@ -319,7 +502,8 @@ function updateMaterialsList() {
                 " onclick="selectMaterialForComparison(${index})">
                     <div>
                         <strong>${mat.material}</strong><br>
-                        <span style="color: #666; font-size: 0.9em;">Qty: ${mat.quantity} ${mat.unit}</span>
+                        <span style="color: #666; font-size: 0.9em;">Qty: ${mat.quantity} ${mat.unit}</span><br>
+                        <span style="color: #007bff; font-size: 0.8em; font-weight: bold;">Category: ${mat.category}</span>
                     </div>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         ${index === currentMaterialIndex ? '<span style="color: #2196f3; font-size: 0.8em;">SELECTED</span>' : ''}
@@ -360,7 +544,7 @@ function selectMaterialForComparison(index) {
     updateSupplierComparison();
 }
 
-// Update supplier comparison table
+// Update supplier comparison table (with category filtering)
 function updateSupplierComparison() {
     const tbody = document.querySelector('.supplier-table tbody');
     
@@ -377,8 +561,25 @@ function updateSupplierComparison() {
     const selectedMaterial = addedMaterials[currentMaterialIndex];
     const materialQuery = selectedMaterial.material.toLowerCase();
     
-    // Find matching materials from database
-    const matches = materialsDatabase.filter(material => 
+    // Find matching materials from database, considering category if specified
+    let candidateMaterials = materialsDatabase;
+    
+    // If the selected material has a category (not Uncategorized), prioritize matches from same category
+    if (selectedMaterial.category !== 'Uncategorized') {
+        const sameCategoryMaterials = materialsDatabase.filter(material => 
+            material.category === selectedMaterial.category &&
+            (material.description.toLowerCase().includes(materialQuery.split(' ')[0]) ||
+             material.keywords.some(keyword => 
+                materialQuery.split(' ').some(word => keyword.includes(word))
+             ))
+        );
+        
+        if (sameCategoryMaterials.length > 0) {
+            candidateMaterials = sameCategoryMaterials;
+        }
+    }
+    
+    const matches = candidateMaterials.filter(material => 
         material.description.toLowerCase().includes(materialQuery.split(' ')[0]) ||
         material.keywords.some(keyword => 
             materialQuery.split(' ').some(word => keyword.includes(word))
@@ -408,7 +609,7 @@ function updateSupplierComparison() {
             const totalPrice = (supplier.price * selectedMaterial.quantity).toFixed(2);
             
             row.innerHTML = `
-                <td><strong>${supplier.supplier}</strong><br><small>${supplier.description}</small></td>
+                <td><strong>${supplier.supplier}</strong><br><small>${supplier.description}</small><br><small style="color: #007bff; font-weight: bold;">Category: ${supplier.category}</small></td>
                 <td>K${supplier.price.toFixed(2)} per ${supplier.uom}<br><small>Total: K${totalPrice}</small></td>
                 <td style="color: ${stock > 50 ? '#28a745' : stock > 20 ? '#ffc107' : '#dc3545'}">${stock} ${supplier.uom}</td>
                 <td>${deliveryTime} day${deliveryTime > 1 ? 's' : ''}</td>
@@ -461,153 +662,7 @@ function selectSupplier(supplierName, price, productCode) {
     }
 }
 
-// Generate quote - FIXED VERSION
-function generateQuote() {
-    if (addedMaterials.length === 0) {
-        alert('Please add some materials first');
-        return;
-    }
-    
-    // Check if all materials have selected suppliers
-    const materialsWithSuppliers = addedMaterials.filter(mat => mat.selectedSupplier);
-    
-    if (materialsWithSuppliers.length === 0) {
-        alert('Please select suppliers for your materials');
-        return;
-    }
-    
-    // Prepare quote data for the results page
-    const quoteData = {
-        items: materialsWithSuppliers.map(material => ({
-            description: material.material,
-            supplier: material.selectedSupplier.name,
-            price: material.selectedSupplier.price,
-            quantity: material.quantity,
-            unit: material.unit,
-            productCode: material.selectedSupplier.productCode
-        })),
-        generatedAt: new Date().toLocaleString()
-    };
-    
-    // Calculate totals
-    quoteData.subtotal = quoteData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    quoteData.tax = quoteData.subtotal * 0.1; // 10% tax
-    quoteData.delivery = 100; // Fixed delivery fee
-    quoteData.total = quoteData.subtotal + quoteData.tax + quoteData.delivery;
-    
-    // Store in sessionStorage for the results page
-    sessionStorage.setItem('quoteResults', JSON.stringify(quoteData));
-    
-    // Show loading state
-    const button = document.querySelector('.generate-button');
-    const originalText = button.textContent;
-    button.textContent = 'Generating Quote...';
-    button.disabled = true;
-    
-    // Redirect to results page after short delay
-    setTimeout(() => {
-        window.location.href = 'results.html';
-    }, 500);
-    
-    // Add this to quotation.js - Character count functionality
-
-// Character count variables
-const maxChars = 500;
-let currentChars = 0;
-
-// Initialize character count functionality
-function setupCharacterCount() {
-    const textarea = document.getElementById('specialRequirements');
-    const charCountElement = document.getElementById('charCount');
-    const charWarningElement = document.getElementById('charWarning');
-    
-    if (!textarea || !charCountElement) return;
-    
-    // Update character count in real-time
-    textarea.addEventListener('input', function() {
-        updateCharacterCount();
-    });
-    
-    // Update on paste events
-    textarea.addEventListener('paste', function() {
-        setTimeout(updateCharacterCount, 10);
-    });
-    
-    // Initialize count on page load
-    updateCharacterCount();
-}
-
-// Update character count display and styling
-function updateCharacterCount() {
-    const textarea = document.getElementById('specialRequirements');
-    const charCountElement = document.getElementById('charCount');
-    const charWarningElement = document.getElementById('charWarning');
-    
-    if (!textarea || !charCountElement) return;
-    
-    currentChars = textarea.value.length;
-    charCountElement.textContent = currentChars;
-    
-    // Remove existing color classes
-    charCountElement.classList.remove('char-normal', 'char-warning', 'char-danger');
-    
-    // Apply appropriate styling based on character count
-    if (currentChars === 0) {
-        charCountElement.classList.add('char-normal');
-        charWarningElement.style.display = 'none';
-    } else if (currentChars < maxChars * 0.8) {
-        // Less than 80% - normal (green)
-        charCountElement.classList.add('char-normal');
-        charWarningElement.style.display = 'none';
-    } else if (currentChars < maxChars * 0.95) {
-        // 80-95% - warning (yellow)
-        charCountElement.classList.add('char-warning');
-        charWarningElement.style.display = 'block';
-        charWarningElement.textContent = 'You\'re approaching the character limit!';
-    } else {
-        // 95%+ - danger (red)
-        charCountElement.classList.add('char-danger');
-        charWarningElement.style.display = 'block';
-        charWarningElement.textContent = `Only ${maxChars - currentChars} characters remaining!`;
-        charWarningElement.style.color = '#dc3545';
-    }
-    
-    // Add visual feedback when at limit
-    if (currentChars >= maxChars) {
-        textarea.style.borderColor = '#dc3545';
-        charWarningElement.textContent = 'Character limit reached!';
-        charWarningElement.style.color = '#dc3545';
-    } else {
-        textarea.style.borderColor = '#ddd';
-    }
-}
-
-// Get special requirements text for quote generation
-function getSpecialRequirements() {
-    const textarea = document.getElementById('specialRequirements');
-    return textarea ? textarea.value.trim() : '';
-}
-
-// Validate special requirements (optional - can be empty)
-function validateSpecialRequirements() {
-    const requirements = getSpecialRequirements();
-    
-    // Check if it exceeds limit (shouldn't happen with maxlength, but good practice)
-    if (requirements.length > maxChars) {
-        alert(`Special requirements cannot exceed ${maxChars} characters. Current: ${requirements.length}`);
-        return false;
-    }
-    
-    return true;
-}
-
-// Update the existing setupMaterialSearch function call
-document.addEventListener('DOMContentLoaded', function() {
-    setupMaterialSearch();
-    setupCharacterCount(); // Add this line
-});
-
-// Update the generateQuote function to include special requirements
+// Generate quote
 function generateQuote() {
     if (addedMaterials.length === 0) {
         alert('Please add some materials first');
@@ -638,9 +693,10 @@ function generateQuote() {
             price: material.selectedSupplier.price,
             quantity: material.quantity,
             unit: material.unit,
+            category: material.category,
             productCode: material.selectedSupplier.productCode
         })),
-        specialRequirements: specialRequirements, // Add this line
+        specialRequirements: specialRequirements,
         generatedAt: new Date().toLocaleString()
     };
     
@@ -665,39 +721,78 @@ function generateQuote() {
     }, 500);
 }
 
-// Advanced character count features (optional enhancements)
-function setupAdvancedCharacterFeatures() {
+// Character count functionality
+const maxChars = 500;
+let currentChars = 0;
+
+function setupCharacterCount() {
     const textarea = document.getElementById('specialRequirements');
-    if (!textarea) return;
+    const charCountElement = document.getElementById('charCount');
+    const charWarningElement = document.getElementById('charWarning');
     
-    // Word count functionality
-    function updateWordCount() {
-        const text = textarea.value.trim();
-        const wordCount = text === '' ? 0 : text.split(/\s+/).length;
-        
-        // You can add a word count display if desired
-        console.log(`Words: ${wordCount}, Characters: ${text.length}`);
-    }
+    if (!textarea || !charCountElement) return;
     
-    // Add word count updates
-    textarea.addEventListener('input', updateWordCount);
-    
-    // Prevent typing when at character limit (alternative to maxlength)
-    textarea.addEventListener('keydown', function(e) {
-        const currentLength = this.value.length;
-        
-        // Allow backspace, delete, and arrow keys even at limit
-        if (currentLength >= maxChars && 
-            !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
-            e.preventDefault();
-        }
+    textarea.addEventListener('input', function() {
+        updateCharacterCount();
     });
+    
+    textarea.addEventListener('paste', function() {
+        setTimeout(updateCharacterCount, 10);
+    });
+    
+    updateCharacterCount();
 }
 
-// Call advanced features setup
-document.addEventListener('DOMContentLoaded', function() {
-    setupMaterialSearch();
-    setupCharacterCount();
-    setupAdvancedCharacterFeatures(); // Optional advanced features
-});
+function updateCharacterCount() {
+    const textarea = document.getElementById('specialRequirements');
+    const charCountElement = document.getElementById('charCount');
+    const charWarningElement = document.getElementById('charWarning');
+    
+    if (!textarea || !charCountElement) return;
+    
+    currentChars = textarea.value.length;
+    charCountElement.textContent = currentChars;
+    
+    charCountElement.classList.remove('char-normal', 'char-warning', 'char-danger');
+    
+    if (currentChars === 0) {
+        charCountElement.classList.add('char-normal');
+        charWarningElement.style.display = 'none';
+    } else if (currentChars < maxChars * 0.8) {
+        charCountElement.classList.add('char-normal');
+        charWarningElement.style.display = 'none';
+    } else if (currentChars < maxChars * 0.95) {
+        charCountElement.classList.add('char-warning');
+        charWarningElement.style.display = 'block';
+        charWarningElement.textContent = 'You\'re approaching the character limit!';
+    } else {
+        charCountElement.classList.add('char-danger');
+        charWarningElement.style.display = 'block';
+        charWarningElement.textContent = `Only ${maxChars - currentChars} characters remaining!`;
+        charWarningElement.style.color = '#dc3545';
+    }
+    
+    if (currentChars >= maxChars) {
+        textarea.style.borderColor = '#dc3545';
+        charWarningElement.textContent = 'Character limit reached!';
+        charWarningElement.style.color = '#dc3545';
+    } else {
+        textarea.style.borderColor = '#ddd';
+    }
+}
+
+function getSpecialRequirements() {
+    const textarea = document.getElementById('specialRequirements');
+    return textarea ? textarea.value.trim() : '';
+}
+
+function validateSpecialRequirements() {
+    const requirements = getSpecialRequirements();
+    
+    if (requirements.length > maxChars) {
+        alert(`Special requirements cannot exceed ${maxChars} characters. Current: ${requirements.length}`);
+        return false;
+    }
+    
+    return true;
 }
